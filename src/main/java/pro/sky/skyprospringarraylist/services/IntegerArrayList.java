@@ -103,12 +103,30 @@ public class IntegerArrayList implements MyArrayList<Integer> {
     }
 
     @Override
-    public boolean contains(Integer item) {
+    public boolean contains (Integer item) {
         if (item == null ) {
             throw new NullPointerException();
         }
-        for (int i=0; i<this.size; i++) {
-            if (this.array[i].equals(item)) return true;
+        this.sort();
+        return binarySearch(item);
+    }
+
+    private boolean binarySearch (Integer item) {
+        int min = 0;
+        int max = this.size - 1;
+
+        while (min <= max) {
+            int mid = (min + max) / 2;
+
+            if (item == this.array[mid]) {
+                return true;
+            }
+
+            if (item < array[mid]) {
+                max = mid - 1;
+            } else {
+                min = mid + 1;
+            }
         }
         return false;
     }
@@ -188,5 +206,18 @@ public class IntegerArrayList implements MyArrayList<Integer> {
         Integer [] array2 = new Integer[this.size];
         System.arraycopy(this.array, 0, array2, 0, this.size);
         return array2;
+    }
+
+    // лучшая скорость у sortInsertion
+    private void sort() {
+        for (int i = 1; i < array.length; i++) {
+            Integer temp = array[i];
+            int j = i;
+            while (j > 0 && array[j - 1] >= temp) {
+                array[j] = array[j - 1];
+                j--;
+            }
+            array[j] = temp;
+        }
     }
 }
