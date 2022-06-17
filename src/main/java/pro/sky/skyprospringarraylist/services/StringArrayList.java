@@ -4,15 +4,15 @@ import org.springframework.stereotype.Service;
 import pro.sky.skyprospringarraylist.exceptions.ItemNotFoundException;
 import pro.sky.skyprospringarraylist.exceptions.MyArrayIndexOutOfBoundsException;
 import pro.sky.skyprospringarraylist.exceptions.TypeIsNotValidException;
-import pro.sky.skyprospringarraylist.interfaces.StringList;
+import pro.sky.skyprospringarraylist.interfaces.MyArrayList;
 
 @Service
-public class StringArrayListService implements StringList {
+public class StringArrayList implements MyArrayList<String> {
     private String [] array;
     private int size = 0;
     private int maxSize = 5;
 
-    public StringArrayListService() {
+    public StringArrayList() {
         this.array = new String [this.maxSize];
     }
 
@@ -186,12 +186,12 @@ public class StringArrayListService implements StringList {
     // Сравнить текущий список с другим.
     // Вернуть true/false или исключение,
     // если передан null.
-    public boolean equals(StringList otherList) {
+    public boolean equals(MyArrayList otherList) {
         if (otherList == null) {
             throw new NullPointerException();
         }
         if
-        (otherList.getClass() != StringArrayListService.class) {
+        (otherList.getClass() != StringArrayList.class) {
             throw new TypeIsNotValidException();
 
         } else {

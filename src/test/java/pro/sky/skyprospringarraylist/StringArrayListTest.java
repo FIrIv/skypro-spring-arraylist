@@ -4,17 +4,14 @@ import org.junit.jupiter.api.Test;
 import pro.sky.skyprospringarraylist.exceptions.ItemNotFoundException;
 import pro.sky.skyprospringarraylist.exceptions.MyArrayIndexOutOfBoundsException;
 import pro.sky.skyprospringarraylist.exceptions.TypeIsNotValidException;
-import pro.sky.skyprospringarraylist.services.IntegerArrayListService;
-import pro.sky.skyprospringarraylist.services.StringArrayListService;
-
-import java.util.HashMap;
-import java.util.Map;
+import pro.sky.skyprospringarraylist.services.IntegerArrayList;
+import pro.sky.skyprospringarraylist.services.StringArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class StringArrayListServiceTest {
+public class StringArrayListTest {
 
-    private final StringArrayListService out = new StringArrayListService();
+    private final StringArrayList out = new StringArrayList();
 
     @Test
     public void add () {
@@ -162,7 +159,7 @@ public class StringArrayListServiceTest {
     }
 
     @Test
-    public void removeShouldMyArrayIndexOutOfBoundsExceptionTooMuch () {
+    public void removeByIndexShouldMyArrayIndexOutOfBoundsExceptionTooMuch () {
         assertThrows(MyArrayIndexOutOfBoundsException.class, () -> {
             out.add("Оксана");
             out.add("Елена");
@@ -172,7 +169,7 @@ public class StringArrayListServiceTest {
     }
 
     @Test
-    public void removeShouldMyArrayIndexOutOfBoundsExceptionTooLess () {
+    public void removeByIndexShouldMyArrayIndexOutOfBoundsExceptionTooLess () {
         assertThrows(MyArrayIndexOutOfBoundsException.class, () -> {
             out.add("Оксана");
             out.add("Елена");
@@ -319,7 +316,7 @@ public class StringArrayListServiceTest {
 
     @Test
     public void equals () {
-        StringArrayListService sev2 = new StringArrayListService();
+        StringArrayList sev2 = new StringArrayList();
         sev2.add("Олег");
         sev2.add("Елена");
         sev2.add("Андрей");
@@ -336,7 +333,7 @@ public class StringArrayListServiceTest {
     @Test
     public void equalsShouldNullPointerException () {
         assertThrows(NullPointerException.class, () -> {
-            StringArrayListService sev2 = null;
+            StringArrayList sev2 = null;
             out.equals(sev2);
         });
     }
@@ -344,7 +341,7 @@ public class StringArrayListServiceTest {
     @Test
     public void equalsShouldTypeIsNotValidException () {
         assertThrows(TypeIsNotValidException.class, () -> {
-            IntegerArrayListService temp = new IntegerArrayListService();
+            IntegerArrayList temp = new IntegerArrayList();
             out.equals(temp);
         });
     }
