@@ -17,8 +17,8 @@ public class StringArrayList implements MyArrayList<String> {
     }
 
     // Расширение массива вдвое при заполнении.
-    private void doubleTheMaxSize() {
-        this.maxSize = this.maxSize*2+1;
+    private void grow() {
+        this.maxSize = this.maxSize*3/2;
         String [] doubleArray = new String[this.maxSize];
         if (this.size >= 0) System.arraycopy(this.array, 0, doubleArray, 0, this.size);
         this.array = doubleArray;
@@ -45,7 +45,7 @@ public class StringArrayList implements MyArrayList<String> {
             throw new NullPointerException();
         }
         int index = this.size;
-        if (this.size==this.maxSize) doubleTheMaxSize();
+        if (this.size==this.maxSize) grow();
         this.array[index]=item;
         this.size++;
         return this.array[index];
@@ -66,7 +66,7 @@ public class StringArrayList implements MyArrayList<String> {
         if (index<0 || index>=this.size) {
             throw new MyArrayIndexOutOfBoundsException();
         }
-        if (this.size==this.maxSize) doubleTheMaxSize();
+        if (this.size==this.maxSize) grow();
         if (this.size - index >= 0) System.arraycopy(this.array, index, this.array, index + 1, this.size - index);
         this.array[index]=item;
         this.size++;
