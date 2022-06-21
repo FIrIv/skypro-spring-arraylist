@@ -10,7 +10,6 @@ public class Sort {
     // худшая скорость
     public void sortBubble (Integer [] array) {
         for (int i=0; i<array.length; i++) {
-            Integer temp=array[i];
             for (int j=0; j<array.length-1-i; j++) {
                 if (array[j]>array[j+1]) {
                     swapElements(array, j, j+1);
@@ -47,7 +46,7 @@ public class Sort {
         }
     }
 
-    private void swapElements (Integer[] array, int index1, int index2) {
+    private static void swapElements (Integer[] array, int index1, int index2) {
         Integer temp = array[index1];
         array[index1] = array[index2];
         array[index2]=temp;
@@ -82,5 +81,28 @@ public class Sort {
             arr[i] = random.nextInt(max-min) + min;
         }
         return arr;
+    }
+
+    public static void quickSort(Integer [] array, int begin, int end) {
+        if (begin<end) {
+            int middleIndex = findMiddleIndex (array, begin, end);
+            quickSort (array, begin, middleIndex-1);
+            quickSort (array,middleIndex+1, end);
+        }
+    }
+
+    private static int findMiddleIndex (Integer [] array, int begin, int end) {
+        Integer endValue = array[end];
+        int index = begin-1;
+
+        for (int i=begin; i<=end; i++) {
+            if (array[i] < endValue) {
+                index++;
+                swapElements(array, index, i);
+            }
+        }
+        index++;
+        swapElements(array, index, end);
+        return index;
     }
 }

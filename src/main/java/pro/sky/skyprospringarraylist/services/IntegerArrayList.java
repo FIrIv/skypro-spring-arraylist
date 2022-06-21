@@ -17,8 +17,8 @@ public class IntegerArrayList implements MyArrayList<Integer> {
     }
 
     // Расширение массива вдвое при заполнении.
-    private void doubleTheMaxSize() {
-        this.maxSize = this.maxSize*2+1;
+    private void grow() {
+        this.maxSize = this.maxSize*3/2;
         Integer [] doubleArray = new Integer[this.maxSize];
         if (this.size >= 0) System.arraycopy(this.array, 0, doubleArray, 0, this.size);
         this.array = doubleArray;
@@ -42,7 +42,7 @@ public class IntegerArrayList implements MyArrayList<Integer> {
             throw new NullPointerException();
         }
         int index = this.size;
-        if (this.size==this.maxSize) doubleTheMaxSize();
+        if (this.size==this.maxSize) grow();
         this.array[index]=item;
         this.size++;
         return this.array[index];
@@ -56,7 +56,7 @@ public class IntegerArrayList implements MyArrayList<Integer> {
         if (index<0 || index>=this.size) {
             throw new MyArrayIndexOutOfBoundsException();
         }
-        if (this.size==this.maxSize) doubleTheMaxSize();
+        if (this.size==this.maxSize) grow();
         if (this.size - index >= 0) System.arraycopy(this.array, index, this.array, index + 1, this.size - index);
         this.array[index]=item;
         this.size++;
@@ -118,7 +118,7 @@ public class IntegerArrayList implements MyArrayList<Integer> {
         while (min <= max) {
             int mid = (min + max) / 2;
 
-            if (item == this.array[mid]) {
+            if (item.equals(this.array[mid])) {
                 return true;
             }
 
@@ -208,16 +208,8 @@ public class IntegerArrayList implements MyArrayList<Integer> {
         return array2;
     }
 
-    // лучшая скорость у sortInsertion
+    // рекурсивная быстрая сортировка
     private void sort() {
-        for (int i = 1; i < array.length; i++) {
-            Integer temp = array[i];
-            int j = i;
-            while (j > 0 && array[j - 1] >= temp) {
-                array[j] = array[j - 1];
-                j--;
-            }
-            array[j] = temp;
-        }
+        Sort.quickSort (this.array, 0, this.array.length-1);
     }
 }

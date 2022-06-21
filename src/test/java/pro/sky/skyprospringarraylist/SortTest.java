@@ -3,8 +3,6 @@ package pro.sky.skyprospringarraylist;
 import org.junit.jupiter.api.Test;
 import pro.sky.skyprospringarraylist.services.Sort;
 
-import java.util.Arrays;
-
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 public class SortTest {
@@ -37,6 +35,16 @@ public class SortTest {
 
         Integer [] array = {54, 69, 78, 66, 9, 89, 10, 11, 11, 45};
         sortService.sortInsertion(array);
+
+        assertArrayEquals(expectedArray, array);
+    }
+
+    @Test
+    public void quickSort () {
+        Integer [] expectedArray = {9, 10, 11, 11, 45, 54, 66, 69, 78, 89};
+
+        Integer [] array = {54, 69, 78, 66, 9, 89, 10, 11, 11, 45};
+        Sort.quickSort(array, 0, array.length-1);
 
         assertArrayEquals(expectedArray, array);
     }
